@@ -9,6 +9,7 @@ const cors = require('cors')
 
 //10 import router
 const router = require("./Routes/router")
+const applicationMiddleware = require('./Middlewares/applicationMiddleware')
 
 //9)import DB
 require('./DB/connection')
@@ -20,7 +21,9 @@ const pfServer = express()
 //5) use 
 pfServer.use(cors())
 pfServer.use(express.json())
+pfServer.use(applicationMiddleware)  //middle ware should use in between express and router
 pfServer.use(router)
+pfServer.use('/uploads',express.static('./uploads')) //image exporting to front end
 
 //6)define port
 
